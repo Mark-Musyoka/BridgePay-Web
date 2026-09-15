@@ -25,8 +25,10 @@ other repo at build time).
 | Landing/Home | Built — hero, 3 feature highlights, Get Started/Log in links out to the app |
 
 That's the entire scope for now — see PLAN.md for what else might
-belong here later (About, Pricing, a real blog/changelog, etc.) versus
-what's deliberately being kept out of scope.
+belong here later (About, Pricing, a real blog/changelog, etc.), the
+pre-launch checklist (§7 — a real breakdown of what's buildable now vs.
+blocked on real content/decisions from the team), and what's
+deliberately being kept out of scope.
 
 ## App Structure
 ```

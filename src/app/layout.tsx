@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'BridgePay — Send, deposit, and pay out — everywhere you already bank',
+  title: 'BridgePay: Send, deposit, and pay out everywhere you already bank',
   description:
     'BridgePay is a digital wallet: instant transfers between BridgePay users, and deposits/withdrawals via card, M-Pesa, Airtel Money, or bank account.',
 };

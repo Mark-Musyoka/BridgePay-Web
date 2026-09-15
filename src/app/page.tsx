@@ -4,7 +4,7 @@ import { APP_LOGIN_URL, APP_REGISTER_URL } from '@/lib/config';
 const FEATURES = [
   {
     title: 'Send, instantly',
-    body: 'Transfer money to any BridgePay user in seconds — no fees, no waiting.',
+    body: 'Transfer money to any BridgePay user in seconds. No fees, no waiting.',
   },
   {
     title: 'Deposit your way',
@@ -12,7 +12,7 @@ const FEATURES = [
   },
   {
     title: 'Withdraw anywhere',
-    body: 'Pay out to a phone, a card, or a bank account — local or international.',
+    body: 'Pay out to a phone, a card, or a bank account, local or international.',
   },
 ];
 
@@ -44,7 +44,7 @@ export default function HomePage() {
         </h1>
         <p className="mt-5 text-lg text-on-surface-variant max-w-xl text-balance">
           Send money to other BridgePay users instantly. Deposit and withdraw by card, M-Pesa,
-          Airtel Money, or bank account — no new habits required.
+          Airtel Money, or bank account, no new habits required.
         </p>
         <Link
           href={APP_REGISTER_URL}
