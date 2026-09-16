@@ -1,10 +1,17 @@
 import type { Metadata } from 'next';
 import './globals.css';
+import { SITE_URL } from '@/lib/config';
 
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
   title: 'BridgePay: Send, deposit, and pay out everywhere you already bank',
   description:
     'BridgePay is a digital wallet: instant transfers between BridgePay users, and deposits/withdrawals via card, M-Pesa, Airtel Money, or bank account.',
+  openGraph: {
+    title: 'BridgePay',
+    description: 'A wallet that works the way you already bank.',
+    type: 'website',
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

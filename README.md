@@ -22,23 +22,38 @@ other repo at build time).
 ## Status
 | Page | Status |
 |---|---|
-| Landing/Home | Built — hero, 3 feature highlights, Get Started/Log in links out to the app |
+| Home (`/`) | Built — hero, 3 feature highlights, Get Started/Log in links out to the app, sticky mobile CTA |
+| FAQ (`/faq`) | Built — real questions/answers about how BridgePay works |
+| Privacy Policy (`/privacy`) | Built as a draft — visible "not yet reviewed" notice, needs legal review |
+| Terms & Conditions (`/terms`) | Built as a draft — same notice, same need |
 
-That's the entire scope for now — see PLAN.md for what else might
-belong here later (About, Pricing, a real blog/changelog, etc.), the
-pre-launch checklist (§7 — a real breakdown of what's buildable now vs.
-blocked on real content/decisions from the team), and what's
+Also built: a custom 404 page, `robots.txt`, `sitemap.xml`, a
+code-generated Open Graph share image, and per-page metadata. See
+PLAN.md for what else might belong here later (About, Pricing, a real
+blog/changelog, etc.), the pre-launch checklist (§7 — what's left, and
+what's blocked on real content/decisions from the team), and what's
 deliberately being kept out of scope.
 
 ## App Structure
 ```
 src/
 ├── app/
-│   ├── layout.tsx      # Root layout, metadata, fonts
-│   ├── page.tsx         # The one page — the landing/home page
-│   └── globals.css      # Same color theme as BridgePay-Frontend
+│   ├── layout.tsx           # Root layout, metadata, fonts
+│   ├── page.tsx              # Home
+│   ├── faq/page.tsx           # FAQ
+│   ├── privacy/page.tsx        # Privacy Policy (draft)
+│   ├── terms/page.tsx           # Terms & Conditions (draft)
+│   ├── not-found.tsx            # Custom 404
+│   ├── robots.ts                 # robots.txt
+│   ├── sitemap.ts                 # sitemap.xml
+│   ├── opengraph-image.tsx         # Code-generated social share image
+│   └── globals.css                  # Same color theme as BridgePay-Frontend
+├── components/
+│   ├── SiteHeader.tsx        # Shared nav
+│   ├── SiteFooter.tsx         # Shared footer
+│   └── StickyMobileCta.tsx     # Mobile-only persistent CTA
 ├── lib/
-│   └── config.ts        # APP_URL — where BridgePay-Frontend is deployed
+│   └── config.ts        # APP_URL/login/register links, SITE_URL
 └── public/
 ```
 
@@ -49,10 +64,11 @@ npm install
 npm run dev
 ```
 Visit `http://localhost:3000`. Copy `.env.local.example` to
-`.env.local` and set `NEXT_PUBLIC_APP_URL` if you're running
-BridgePay-Frontend locally too (its dev server defaults to `:3000`,
-so run one of the two on a different port — e.g.
-`npm run dev -- -p 3001` — to avoid a collision).
+`.env.local` and set `NEXT_PUBLIC_APP_URL` (and `NEXT_PUBLIC_SITE_URL`
+once a real domain exists) if you're running BridgePay-Frontend
+locally too (its dev server defaults to `:3000`, so run one of the two
+on a different port — e.g. `npm run dev -- -p 3001` — to avoid a
+collision).
 
 ## CI & Deployment
 `.github/workflows/ci.yml` runs `npm run build` and `npm run lint` on

@@ -8,3 +8,8 @@ export const APP_URL = process.env.NEXT_PUBLIC_APP_URL ?? 'http://localhost:3001
 
 export const APP_LOGIN_URL = `${APP_URL}/login`;
 export const APP_REGISTER_URL = `${APP_URL}/register`;
+
+/** This site's own URL — used for robots.txt/sitemap.xml, which need
+ * absolute URLs. Update NEXT_PUBLIC_SITE_URL once a real domain is
+ * connected; falls back to localhost for local dev. */
+export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'http://localhost:3000';

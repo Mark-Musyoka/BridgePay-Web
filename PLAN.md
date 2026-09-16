@@ -28,7 +28,10 @@ time (same stack, independent repos).
 ## 3. Pages
 | Page | Status | What it does |
 |---|---|---|
-| `/` (Home) | Built | Nav (logo, Log in, Get Started), hero headline + subheadline + primary CTA, 3 feature highlights (send instantly, deposit your way, withdraw anywhere), footer |
+| `/` (Home) | Built | Nav (logo, FAQ, Log in, Get Started), hero headline + subheadline + primary CTA, 3 feature highlights (send instantly, deposit your way, withdraw anywhere), footer, sticky mobile "Get Started" bar |
+| `/faq` | Built | Real questions/answers about how BridgePay actually works — no invented claims |
+| `/privacy` | Built (draft) | Standard privacy-policy template with a visible "not yet reviewed" notice and `[bracketed]` placeholders for anything needing real input — not the actual legal policy yet |
+| `/terms` | Built (draft) | Same treatment as `/privacy`, for terms & conditions |
 
 ## 4. Design direction
 Same principles used for BridgePay-Frontend's screens — calm and
@@ -42,9 +45,13 @@ simple, not a "dashboard" or an over-decorated marketing page:
 - Large, confident headline typography; everything else quieter
 
 ## 5. Current state
-The entire site as scoped right now: one page (`/`), built. CI
-(`.github/workflows/ci.yml`) runs build + lint on every push/PR, same
-pattern as BridgePay-Frontend.
+Four pages: Home, FAQ, Privacy (draft), Terms (draft) — see section 3.
+Also built: a custom 404 page, `robots.txt`, `sitemap.xml`, a
+code-generated Open Graph share image, per-page metadata (titles +
+descriptions), and a sticky mobile "Get Started" bar. `SiteHeader`/
+`SiteFooter` are now shared components so every page stays consistent
+as more get added. CI (`.github/workflows/ci.yml`) runs build + lint
+on every push/PR, same pattern as BridgePay-Frontend.
 
 ## 6. Possible future additions (not started, not committed to)
 - About / team page
@@ -77,17 +84,18 @@ future change:**
 | No fake customer counters | ✅ none |
 | No AI slop photos/copy | ✅ no stock/AI imagery; copy is plain and specific |
 
-**Buildable now, no new content needed:**
+**Buildable now, no new content needed — all done:**
 | Item | Status |
 |---|---|
-| Custom 404 page | Not built |
-| `robots.txt` | Not built |
-| Unique page titles, meta descriptions | Only one page exists, so trivially "unique" — becomes a real task once more pages exist |
-| Social share (OG) image | Not built |
-| Proper icon set (beyond the reused favicon) | Not built |
-| Sticky mobile CTA | Not built |
-| Breadcrumbs | Not meaningful yet — only one page exists |
-| Internal links | Not meaningful yet — only one page exists |
+| Custom 404 page | ✅ Built |
+| `robots.txt` | ✅ Built (`app/robots.ts`), points at the sitemap |
+| Sitemap | ✅ Built (`app/sitemap.ts`), lists all four pages |
+| Unique page titles, meta descriptions | ✅ Each page sets its own via Next's `Metadata` export |
+| Social share (OG) image | ✅ Code-generated (`app/opengraph-image.tsx`), no designed asset needed |
+| Sticky mobile CTA | ✅ Built, mobile only |
+| Internal links | ✅ Nav/footer now link Home ↔ FAQ ↔ Privacy ↔ Terms |
+| Breadcrumbs | Still not meaningful — four flat top-level pages, no nesting to show a trail for |
+| Proper icon set | Not built — current design is intentionally icon-light (text-only feature list); revisit if that changes |
 
 **Blocked on real content/decisions from the team — not something to
 invent:**
@@ -95,9 +103,8 @@ invent:**
 |---|---|
 | Real photo of the founder/team | An actual photo file |
 | Case study section | A real customer story to tell |
-| FAQ section | Real questions + real answers (happy to draft a first pass once you tell me what you actually get asked) |
 | Response time promise | An actual committed SLA — "we reply within X" is a real policy decision, not mine to pick |
-| Privacy policy + terms & conditions pages | I can draft boilerplate text as a starting point, but it needs real legal review before it's actually the site's policy — flag if you want that draft |
+| Privacy policy + terms & conditions — real, final text | Drafts now exist at `/privacy` and `/terms` with a visible "not yet reviewed" notice — need a lawyer's review and every `[bracketed]` placeholder filled in with real details before that notice comes off |
 | Local business schema | A real business address/hours to encode — does BridgePay have a physical location to list? |
 | Maps and directions | Same — needs a real address |
 | Google Analytics | A GA4 property + tracking ID from your own Google account |
@@ -116,14 +123,25 @@ invent:**
 ```
 .github/
   workflows/
-    ci.yml           # build + lint on every push/PR
+    ci.yml               # build + lint on every push/PR
 src/
   app/
-    layout.tsx       # root layout, metadata, fonts
-    page.tsx          # the one page — landing/home
-    globals.css        # same color theme as BridgePay-Frontend
+    layout.tsx           # root layout, metadata, fonts
+    page.tsx              # Home
+    faq/page.tsx           # FAQ
+    privacy/page.tsx        # Privacy Policy (draft, needs legal review)
+    terms/page.tsx           # Terms & Conditions (draft, needs legal review)
+    not-found.tsx           # custom 404
+    robots.ts                # robots.txt
+    sitemap.ts                # sitemap.xml
+    opengraph-image.tsx        # code-generated social share image
+    globals.css                # same color theme as BridgePay-Frontend
+  components/
+    SiteHeader.tsx        # shared nav, every page uses this
+    SiteFooter.tsx         # shared footer, every page uses this
+    StickyMobileCta.tsx      # mobile-only persistent "Get Started" bar
   lib/
-    config.ts         # APP_URL and the two derived login/register links
+    config.ts             # APP_URL/login/register links, SITE_URL
 public/
 .env.local.example
 README.md
